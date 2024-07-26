@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { View, TextInput, FlatList, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -33,7 +34,7 @@ const SearchScreen = ({ navigation }) => {
         onChangeText={setSearchTerm}
         onSubmitEditing={() => handleSearch(searchTerm)}
       />
-      <FlatList
+      <FlatList style={styles.blocks}
         data={movies}
         renderItem={renderItem}
         keyExtractor={item => item.show.id.toString()}
@@ -45,13 +46,17 @@ const SearchScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   searchBar: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'black',
+    borderColor:'white',
+    borderWidth:2,
     margin: 10,
-    borderRadius: 5,
+    borderRadius:45,
+    color:'white',
+    paddingLeft:20,
   },
   movieContainer: {
     flexDirection: 'row',

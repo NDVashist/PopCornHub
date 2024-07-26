@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
 import axios from 'axios';
@@ -12,13 +13,11 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigation.navigate('Details', { movie: item.show })}>
-      <View style={styles.movieContainer}>
-        <Image source={{ uri: item.show.image?.medium }} style={styles.thumbnail} />
-        <View style={styles.infoContainer}>
-          <Text style={styles.title}>{item.show.name}</Text>
-          <Text style={styles.summary}>{item.show.summary}</Text>
-        </View>
+    <TouchableOpacity style={styles.movieContainer} onPress={() => navigation.navigate('Details', { movie: item.show })}>
+      <Image source={{ uri: item.show.image?.medium }} style={styles.thumbnail} resizeMode='contain' />
+      <View style={styles.infoContainer}>
+        <Text style={styles.title}>{item.show.name}</Text>
+        {/* <Text style={styles.summary}>{item.show.summary}</Text> */}
       </View>
     </TouchableOpacity>
   );
@@ -29,11 +28,13 @@ const HomeScreen = ({ navigation }) => {
         style={styles.searchBar}
         placeholder="Search..."
         onFocus={() => navigation.navigate('Search')}
+        placeholderTextColor={'white'}
       />
-      <FlatList
+      <FlatList 
         data={movies}
         renderItem={renderItem}
         keyExtractor={item => item.show.id.toString()}
+        numColumns={2} // Set the number of columns to 2 for grid layout
       />
     </View>
   );
@@ -42,23 +43,38 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   searchBar: {
     padding: 10,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'black',
+    borderColor:'white',
+    borderWidth:2,
     margin: 10,
-    borderRadius: 5,
+    borderRadius:45,
+    color:'white',
+    paddingLeft:20,
   },
   movieContainer: {
-    flexDirection: 'row',
+    flex: 1,
+    flexDirection: 'column',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
+    borderWidth: 1,
+    borderColor: '#ddd',
+    // backgroundColor:'red',
+    margin:6,
+    borderWidth:0.2,
+    borderRadius:1,
+    alignItems:'center',
+   
+    shadowColor:'blue',
+
   },
   thumbnail: {
-    width: 100,
-    height: 150,
+    width: '80%',
+    height: 100,
+
+
   },
   infoContainer: {
     marginLeft: 10,
@@ -67,6 +83,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
+    color:'white',
   },
   summary: {
     fontSize: 14,
